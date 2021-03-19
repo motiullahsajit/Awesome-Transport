@@ -21,7 +21,7 @@ const RidePackeges = (props) => {
     }, [])
 
     return (
-        <div className='bg-light'>
+        <div className='bg-dark w-100 p-2'>
             {
                 rideType === 'BIKE' && bikePacks.map(pack => <RidePackage pack={pack} />)
             }

@@ -1,0 +1,22 @@
+[
+    {
+        "rideType": "BIKE",
+        "rideImg": "https://i.ibb.co/7250Hdh/Frame.png",
+        "shortDes": "Lorem ipsum dolor sit amet "
+    },
+    {
+        "rideType": "CAR",
+        "rideImg": "https://i.ibb.co/kQCdx0B/car3.png",
+        "shortDes": "Lorem ipsum dolor sit amet "
+    },
+    {
+        "rideType": "BUS",
+        "rideImg": "https://i.ibb.co/gz2Gfgb/bus1.jpg",
+        "shortDes": "Lorem ipsum dolor sit amet "
+    },
+    {
+        "rideType": "TRAIN",
+        "rideImg": "https://i.ibb.co/DkhH9Ln/train2.jpg",
+        "shortDes": "Lorem ipsum dolor sit amet "
+    }
+]

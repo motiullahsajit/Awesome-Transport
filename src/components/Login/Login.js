@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from '../../firebase.config';
 import { UserContext } from '../../App';
+import { useHistory, useLocation } from 'react-router';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -10,12 +11,14 @@ if (!firebase.apps.length) {
 const Login = () => {
     const [option, setOption] = useState('register');
     const [error, setError] = useState('')
-    const [formData, setFormData] = useState({ email: null, password: null });
+    const [formData, setFormData] = useState({ name: null, confirmPassword: null, email: null, password: null });
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
-
+    console.log(loggedInUser)
+    let history = useHistory();
+    let location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
     const onChangeHandler = (e) => {
         let isFieldValid = true;
-
         if (e.target.name === 'email') {
             isFieldValid = /\S+@\S+\.\S+/.test(e.target.value)
         }
@@ -34,15 +37,26 @@ const Login = () => {
         }
     }
 
-    const gprovider = new firebase.auth.GoogleAuthProvider();
-    const fbProvider = new firebase.auth.FacebookAuthProvider();
-    const twProvider = new firebase.auth.TwitterAuthProvider();
 
-    const handleSingIn = (provider) => {
+    const handleGoogleSingIn = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth()
             .signInWithPopup(provider)
             .then((result) => {
                 setLoggedInUser(result.user)
+                history.replace(from);
+            }).catch((error) => {
+                const errorMessage = error.message;
+                setError(errorMessage)
+            });
+    }
+    const handleFacebookSingIn = () => {
+        const provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                setLoggedInUser(result.user)
+                history.replace(from);
             }).catch((error) => {
                 const errorMessage = error.message;
                 setError(errorMessage)
@@ -52,9 +66,10 @@ const Login = () => {
     const signUp = (e) => {
         e.preventDefault();
         firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setLoggedInUser(user)
+            .then((res) => {
+                const user = res.user;
+                setLoggedInUser(user)              
+                history.replace(from);
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -67,9 +82,10 @@ const Login = () => {
         e.preventDefault();
 
         firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-            .then((userCredential) => {
-                const user = userCredential.user;
+            .then((res) => {
+                const user = res.user;
                 setLoggedInUser(user)
+                history.replace(from);
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -87,20 +103,23 @@ const Login = () => {
     }
     return (
         <>  {
-            loggedInUser.email ? <div className='container col-md-3 text-center'> <h3>{loggedInUser.name}</h3>  <h3>Email: {loggedInUser.email}</h3> <h5>Your are  logged in</h5> <button className='btn btn-success w-100 my-1' onClick={singOUt}>Sign Out</button></div>
+            loggedInUser.email ? <div className='container col-md-3 text-center'>
+                 <h3>{formData.name}</h3>
+                 <img src={loggedInUser.photoURL} alt=""/>
+                 <h3>{loggedInUser.displayName}</h3>  
+                 <h3>Email: {loggedInUser.email}</h3>
+                  <button className='btn btn-success w-100 my-1' onClick={singOUt}>Sign Out</button>
+                  </div>
                 :
                 <>
                     <div className="col-md-3 mt-5 container bg-light p-3">
-                        <div className="tab bg-light p-2 rounded mb-3 row">
-                            {/* <button onClick={() => setOption('register')} className={`btn ${option === 'register' ? ' btn-danger' : 'btn-light'}  col`}>Register</button> */}
-                        </div>
                         <form className="form my-4">
                             {
                                 option === 'register' ? <h3>Create an account</h3> : <h3>Login</h3>
                             }
                             {
                                 option === 'register' && <div className="mb-3">
-                                    <input name="name" onChange={(e) => onChangeHandler(e)} type="text" placeholder="Name" className="form-control" required />
+                                    <input name="name" type="text" onChange={(e) => onChangeHandler(e)} placeholder="Name" className="form-control" required />
                                 </div>
                             }
                             <div className="mb-3">
@@ -133,8 +152,8 @@ const Login = () => {
                             }
                         </form>
                         <h3 className='text-danger text-center'>Or</h3>
-                        <button type="submit" onClick={() => handleSingIn(gprovider)} className="btn btn-success my-1 w-100">Sing In With Google</button>
-                        <button type="submit" onClick={() => handleSingIn(fbProvider)} className="btn btn-primary my-1 w-100">Sing In With Facebook</button>
+                        <button type="submit" onClick={handleGoogleSingIn} className="btn btn-success my-1 w-100">Sing In With Google</button>
+                        <button type="submit" onClick={handleFacebookSingIn} className="btn btn-primary my-1 w-100">Sing In With Facebook</button>
                     </div>
                 </>
         } </>

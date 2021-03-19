@@ -1,35 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "bootstrap/js/src/collapse.js";
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import { useContext } from 'react';
+import { UserContext } from '../../App';
 
 const Header = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
     return (
-        <nav className="navbar navbar-expand-lg navbar-light">
-            <div className="container">
-                <Link className="navbar-brand" to='/'><h2>Awesome Transport</h2></Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link " to='/'>Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/destination'>Destination</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/blog'>Blog</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to='/contact'>Contact</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="btn btn-success nav-link" to='/login'>Login</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <Container>
+            <Navbar expand="lg">
+                <Navbar.Brand to='/'><h2 className='text-success'>Awesome Transport</h2></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ml-auto">
+                        <Nav.Link><Link to='/home'>Home</Link></Nav.Link>
+                        <Nav.Link><Link to='/destination/destination'>Destination</Link></Nav.Link>
+                        <Nav.Link><Link to='/blog'>Blog</Link></Nav.Link>
+                        <Nav.Link><Link to='/contact'>Contact</Link></Nav.Link>
+                        {
+                            loggedInUser.email ? <Nav.Link><Link to='/login'>{loggedInUser.displayName}</Link></Nav.Link> : <Nav.Link><Link className="btn btn-success" to='/login'>Login</Link></Nav.Link>
+                        }
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        </Container>
     );
 };
 
