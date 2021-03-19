@@ -1,0 +1,26 @@
+[
+    {
+        "vehicle": "Blogtags",
+        "person": 1,
+        "cost": "$51.38",
+        "vehicleImg": "https://i.ibb.co/7pTwYpv/car1.png"
+    },
+    {
+        "vehicle": "Wordpedia",
+        "person": 2,
+        "cost": "$41.82",
+        "vehicleImg": "https://i.ibb.co/L9SHpsd/car2.jpg"
+    },
+    {
+        "vehicle": "Tekfly",
+        "person": 3,
+        "cost": "$57.40",
+        "vehicleImg": "https://i.ibb.co/kQCdx0B/car3.png"
+    },
+    {
+        "vehicle": "Skyble",
+        "person": 4,
+        "cost": "$44.18",
+        "vehicleImg": "https://i.ibb.co/RpYq7jF/car4.jpg"
+    }
+]

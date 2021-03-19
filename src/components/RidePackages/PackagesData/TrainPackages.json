@@ -1,0 +1,26 @@
+[
+    {
+        "vehicle": "Aivee",
+        "person": 1,
+        "cost": "$55.84",
+        "vehicleImg": "https://i.ibb.co/WsbjPMK/train1.jpg"
+    },
+    {
+        "vehicle": "Skajo",
+        "person": 2,
+        "cost": "$59.05",
+        "vehicleImg": "https://i.ibb.co/DkhH9Ln/train2.jpg"
+    },
+    {
+        "vehicle": "Brightbean",
+        "person": 3,
+        "cost": "$53.55",
+        "vehicleImg": "https://i.ibb.co/f12htbK/train3.jpg"
+    },
+    {
+        "vehicle": "Meevee",
+        "person": 4,
+        "cost": "$46.29",
+        "vehicleImg": "https://i.ibb.co/3FLBQWR/train4.jpg"
+    }
+]

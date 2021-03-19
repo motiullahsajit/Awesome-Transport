@@ -1,0 +1,26 @@
+[
+    {
+        "vehicle": "Trudeo",
+        "person": 1,
+        "cost": "$43.41",
+        "vehicleImg": "https://i.ibb.co/dbyWYnr/bike1.png"
+    },
+    {
+        "vehicle": "Tekfly",
+        "person": 2,
+        "cost": "$54.53",
+        "vehicleImg": "https://i.ibb.co/Zm0YVtw/bike2.jpg"
+    },
+    {
+        "vehicle": "DabZ",
+        "person": 3,
+        "cost": "$55.75",
+        "vehicleImg": "https://i.ibb.co/KbZJMcS/bike3.png"
+    },
+    {
+        "vehicle": "Avavee",
+        "person": 4,
+        "cost": "$59.96",
+        "vehicleImg": "https://i.ibb.co/x3cRVLw/bike4.png"
+    }
+]

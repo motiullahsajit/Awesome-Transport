@@ -1,0 +1,22 @@
+[
+    {
+        "rideType": "BIKE",
+        "rideImg": "https://i.ibb.co/7250Hdh/Frame.png",
+        "shortDes": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, excepturi."
+    },
+    {
+        "rideType": "CAR",
+        "rideImg": "https://i.ibb.co/Gc1RnmQ/Frame-2.png",
+        "shortDes": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, excepturi."
+    },
+    {
+        "rideType": "BUS",
+        "rideImg": "https://i.ibb.co/Bwwr79c/Frame-1.png",
+        "shortDes": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, excepturi."
+    },
+    {
+        "rideType": "TRAIN",
+        "rideImg": "https://i.ibb.co/xHjFKXq/Group.png",
+        "shortDes": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, excepturi."
+    }
+]

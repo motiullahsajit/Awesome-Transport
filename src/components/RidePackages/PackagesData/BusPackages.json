@@ -1,0 +1,26 @@
+[
+    {
+        "vehicle": "Meembee",
+        "person": 1,
+        "cost": "$58.74",
+        "vehicleImg": "https://i.ibb.co/gz2Gfgb/bus1.jpg"
+    },
+    {
+        "vehicle": "Thoughtmix",
+        "person": 2,
+        "cost": "$57.57",
+        "vehicleImg": "https://i.ibb.co/qjJcLbZ/bus2.png"
+    },
+    {
+        "vehicle": "Twinte",
+        "person": 3,
+        "cost": "$41.81",
+        "vehicleImg": "https://i.ibb.co/qxN1f7g/bus3.jpg"
+    },
+    {
+        "vehicle": "Mydo",
+        "person": 4,
+        "cost": "$54.98",
+        "vehicleImg": "https://i.ibb.co/LJcJcc2/bus4.jpg"
+    }
+]
