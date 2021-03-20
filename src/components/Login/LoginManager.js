@@ -78,9 +78,5 @@ const updateUserName = name => {
     const user = firebase.auth().currentUser;
     user.updateProfile({
         displayName: name,
-    }).then(function () {
-        console.log('user name updated successfully')
-    }).catch(function (error) {
-        console.log(error)
-    });
+    })
 }

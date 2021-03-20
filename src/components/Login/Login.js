@@ -48,18 +48,19 @@ const Login = () => {
             setError('Please check your Email format or Password (password should have more then six character and a number in it)')
         }
     }
-    const signUp = (e) => {
-        e.preventDefault();
-        createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
-            handleResponse(res, true)
-        }).catch(error => { setError(error) })
-    }
 
-    const signIn = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(formData.email, formData.password).then(res => {
-            handleResponse(res, true)
-        }).catch(error => { setError(error) })
+        if (option === 'register') {
+            createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
+                handleResponse(res, true)
+            }).catch(error => { setError(error) })
+        }
+        if (option === 'login') {
+            signInWithEmailAndPassword(formData.email, formData.password).then(res => {
+                handleResponse(res, true)
+            }).catch(error => { setError(error) })
+        }
     }
 
     const singOUt = (e) => {
@@ -87,6 +88,7 @@ const Login = () => {
         <>  {
             loggedInUser.email ?
                 <div className='container col-md-3 text-center mt-5'>
+                    <h3>Your Profile</h3>
                     <div className="card text-left">
                         <img src={loggedInUser.photoURL} alt="" />
                         <div className="card-body">
@@ -99,7 +101,7 @@ const Login = () => {
                 :
                 <>
                     <div className="col-md-3 mt-5 container bg-light p-3">
-                        <form className="form my-4">
+                        <form onSubmit={handleSubmit} className="form my-4">
                             {
                                 option === 'register' ? <h3>Create an account</h3> : <h3>Login</h3>
                             }
@@ -127,9 +129,9 @@ const Login = () => {
                             <div className="mb-3 d-grid">
                                 {
                                     option === 'register' ?
-                                        <button type="submit" onClick={signUp} className="btn btn-danger w-100">Register</button>
+                                        <button type="submit" className="btn btn-danger w-100">Register</button>
                                         :
-                                        <button type="submit" onClick={signIn} className="btn btn-danger w-100">Login</button>
+                                        <button type="submit" className="btn btn-danger w-100">Login</button>
                                 }
                             </div>
                             {
