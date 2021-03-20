@@ -3,7 +3,7 @@ import blogImg from '../../images/blogImg.jpg'
 const Blog = () => {
     return (
         <div className="container">
-            <div className="card col-md-9 mx-auto">
+            <div className="card col-lg-10 col-md-8 col-sm-12 mx-auto">
                 <img src={blogImg} className="card-img-top" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">Why You Should Choose Us</h5>

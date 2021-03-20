@@ -3,7 +3,7 @@ import Ride from '../Ride/Ride';
 import RideTypeData from './RideTypeData.json';
 
 
-const RideType = () => {
+const RideSelection = () => {
     const [rides, setRides] = useState([])
 
     useEffect(() => {
@@ -22,4 +22,4 @@ const RideType = () => {
     );
 };
 
-export default RideType;
+export default RideSelection;

@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import Header from './components/Header/Header';
-import RideType from './components/RideSelection/RideSelection';
+import RideSelection from './components/RideSelection/RideSelection';
 import Login from './components/Login/Login';
 import Destination from './components/Destination/Destination';
 import { createContext, useState } from 'react';
@@ -24,7 +24,7 @@ function App() {
           <Header />
           <Switch>
             <Route path='/home'>
-              <RideType />
+              <RideSelection />
             </Route>
             <PrivateRoute path='/destination/:destination'>
               <Destination />
@@ -42,7 +42,7 @@ function App() {
               <Destination />
             </PrivateRoute>
             <Route exact path='/'>
-              <RideType />
+              <RideSelection />
             </Route>
             <Route path='*'>
               <NotFound />

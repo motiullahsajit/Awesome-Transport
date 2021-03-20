@@ -131,8 +131,8 @@ const Login = () => {
                             }
                         </form>
                         <h3 className='text-warning text-center'>Or</h3>
-                        <button type="submit" onClick={handleGoogleSingIn} className="btn btn-success my-1 w-100">Continue With Google</button>
                         <button type="submit" onClick={handleFacebookSingIn} className="btn btn-primary my-1 w-100">Continue With Facebook</button>
+                        <button type="submit" onClick={handleGoogleSingIn} className="btn btn-success my-1 w-100">Continue With Google</button>
                     </div>
                 </>
         } </>

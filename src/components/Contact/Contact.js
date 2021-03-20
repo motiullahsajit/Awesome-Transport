@@ -4,7 +4,7 @@ const Contact = () => {
     return (
         <div className="container mt-5">
             <h1 className='text-warning text-center my-2'>Contact Us</h1>
-            <div className="col-md-5 mx-auto">
+            <div className="col-lg-4 col-md-5 col-sm-12 mx-auto">
                 <from className='from'>
                     <input type="text" placeholder='Your Name' className="form-control my-1 py-4" required />
                     <input type="email" placeholder='Your Email' className="form-control my-1 py-4" required />

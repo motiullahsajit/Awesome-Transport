@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { GoogleMap } from '../GoogleMap/GoogleMap';
+import GoogleMap from '../GoogleMap/GoogleMap';
 import RidePackeges from '../RidePackages/RidePackeges';
 const Destination = () => {
     const { rideType } = useParams();
@@ -57,7 +57,7 @@ const Destination = () => {
                                 </div>
                                 <div className="col-md-8 text-warning">
                                     <h3>Location</h3>
-                                    <GoogleMap />
+                                    <GoogleMap/>
                                 </div>
                             </div>
                         </div>

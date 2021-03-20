@@ -24,6 +24,7 @@ export const googleSingIn = () => {
             return (errorMessage)
         });
 }
+
 export const facebookSingIn = () => {
     const provider = new firebase.auth.FacebookAuthProvider();
     return firebase.auth()
