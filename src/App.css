@@ -1,6 +1,7 @@
 .main{
-  background-image: url(../src/images/Bg.png);
-  background-size: 100%;
-  background-position: center bottom;
+  background-image: url(../src/images/bg.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   min-height: 100vh;
 }

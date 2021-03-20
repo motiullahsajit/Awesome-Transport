@@ -9,7 +9,7 @@ const RidePackage = (props) => {
             <div className="col-4"><img src={vehicleImg} className='w-100' alt="" /></div>
             <div className="col-3">{vehicle}</div>
             <div className="col-3"><FontAwesomeIcon icon={faUserFriends} className='mx-1' />{person}</div>
-            <div className="col-2">{cost}</div>
+            <div className="col-2 p-2">{cost}</div>
         </div>
     );
 };

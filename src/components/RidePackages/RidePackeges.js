@@ -9,30 +9,30 @@ import TrainPackages from './PackagesData/TrainPackages.json'
 
 const RidePackeges = (props) => {
     const rideType = props.rideType
-    const [bikePacks, setBikePacks] = useState([])
-    const [carPacks, setCarPacks] = useState([])
-    const [busPacks, setBusPacks] = useState([])
-    const [trainPacks, settrainPacks] = useState([])
+    const [bikePackages, setBikePackages] = useState([])
+    const [carPackages, setCarPackages] = useState([])
+    const [busPackages, setBusPackages] = useState([])
+    const [trainPackages, settrainPackages] = useState([])
     useEffect(() => {
-        setBikePacks(BikePackages)
-        setCarPacks(CarPackages)
-        setBusPacks(BusPackages)
-        settrainPacks(TrainPackages)
+        setBikePackages(BikePackages)
+        setCarPackages(CarPackages)
+        setBusPackages(BusPackages)
+        settrainPackages(TrainPackages)
     }, [])
 
     return (
-        <div className='bg-dark w-100 p-2'>
+        <div className='w-100 p-2'>
             {
-                rideType === 'BIKE' && bikePacks.map(pack => <RidePackage pack={pack} />)
+                rideType === 'BIKE' && bikePackages.map(pack => <RidePackage key={pack.cost} pack={pack} />)
             }
             {
-                rideType === 'CAR' && carPacks.map(pack => <RidePackage pack={pack} />)
+                rideType === 'CAR' && carPackages.map(pack => <RidePackage key={pack.cost} pack={pack} />)
             }
             {
-                rideType === 'BUS' && busPacks.map(pack => <RidePackage pack={pack} />)
+                rideType === 'BUS' && busPackages.map(pack => <RidePackage key={pack.cost} pack={pack} />)
             }
             {
-                rideType === 'TRAIN' && trainPacks.map(pack => <RidePackage pack={pack} />)
+                rideType === 'TRAIN' && trainPackages.map(pack => <RidePackage key={pack.cost} pack={pack} />)
             }
         </div>
     );

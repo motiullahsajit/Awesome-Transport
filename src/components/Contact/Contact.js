@@ -9,7 +9,7 @@ const Contact = () => {
                     <input type="text" placeholder='Your Name' className="form-control my-1 py-4" required />
                     <input type="email" placeholder='Your Email' className="form-control my-1 py-4" required />
                     <textarea name="meassage" className='w-100 my-1 form-control py-4'  placeholder='Your meassage'></textarea>
-                    <button type='submit' className='btn btn-warning w-100'>Submit</button>
+                    <button type='submit' className='btn btn-warning text-white w-100'>Submit</button>
                 </from>
             </div>
         </div>

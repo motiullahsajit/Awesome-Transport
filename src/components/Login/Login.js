@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { UserContext } from '../../App';
+import Profile from '../Profile/Profile';
 import { createUserWithEmailAndPassword, googleSingIn, initializeLoginFramework, signInWithEmailAndPassword, handleSignOut, facebookSingIn, } from './LoginManager';
 
 
 const Login = () => {
     initializeLoginFramework();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
-    const [option, setOption] = useState('register');
+    const [option, setOption] = useState('signUp');
     const [error, setError] = useState('');
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState({});
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
@@ -51,7 +52,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (option === 'register') {
+        if (option === 'signUp') {
             createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
                 handleResponse(res, true)
             }).catch(error => { setError(error) })
@@ -63,7 +64,7 @@ const Login = () => {
         }
     }
 
-    const singOUt = (e) => {
+    const singOut = (e) => {
         handleSignOut().then(res => {
             handleResponse(res, false)
         }).catch(error => { setError(error) })
@@ -87,26 +88,16 @@ const Login = () => {
     return (
         <>  {
             loggedInUser.email ?
-                <div className='container col-md-3 text-center mt-5'>
-                    <h3>Your Profile</h3>
-                    <div className="card text-left">
-                        <img src={loggedInUser.photoURL} alt="" />
-                        <div className="card-body">
-                            <h3>Name: {loggedInUser.displayName}</h3>
-                            <h3>Email: {loggedInUser.email}</h3>
-                        </div>
-                        <button className='btn btn-success w-100 rounded-0' onClick={singOUt}>Sign Out</button>
-                    </div>
-                </div>
+                <Profile />
                 :
                 <>
                     <div className="col-md-3 mt-5 container bg-light p-3">
                         <form onSubmit={handleSubmit} className="form my-4">
                             {
-                                option === 'register' ? <h3>Create an account</h3> : <h3>Login</h3>
+                                option === 'signUp' ? <h3 className='text-warning'>Create an account</h3> : <h3 className='text-warning'>Login</h3>
                             }
                             {
-                                option === 'register' && <div className="mb-3">
+                                option === 'signUp' && <div className="mb-3">
                                     <input name="name" type="text" onChange={(e) => onChangeHandler(e)} placeholder="Name" className="form-control" required />
                                 </div>
                             }
@@ -117,7 +108,7 @@ const Login = () => {
                                 <input name="password" onChange={(e) => onChangeHandler(e)} type="password" placeholder="Password" className="form-control" required />
                             </div>
                             {
-                                option === 'register' && <div className="mb-3">
+                                option === 'signUp' && <div className="mb-3">
                                     <input name="confirmPassword" onChange={(e) => onChangeHandler(e)} type="password" placeholder="Confirm Password" className="form-control" required />
                                 </div>
                             }
@@ -128,20 +119,20 @@ const Login = () => {
                             </div>
                             <div className="mb-3 d-grid">
                                 {
-                                    option === 'register' ?
-                                        <button type="submit" className="btn btn-danger w-100">Register</button>
+                                    option === 'signUp' ?
+                                        <button type="submit" className="btn btn-warning text-white w-100">Create an account</button>
                                         :
-                                        <button type="submit" className="btn btn-danger w-100">Login</button>
+                                        <button type="submit" className="btn btn-warning text-white w-100">Login</button>
                                 }
                             </div>
                             {
-                                option === 'register' ? <> <p>Already have an account? <span className='text-danger' onClick={() => setOption('login')}>Login</span></p></> :
-                                    <> <p>Don't have an account? <span className='text-danger' onClick={() => setOption('register')}>Create an account</span></p></>
+                                option === 'signUp' ? <> <p>Already have an account? <span className='text-warning' onClick={() => setOption('login')}>Login</span></p></> :
+                                    <> <p>Don't have an account? <span className='text-warning' onClick={() => setOption('signUp')}>Create an account</span></p></>
                             }
                         </form>
-                        <h3 className='text-danger text-center'>Or</h3>
-                        <button type="submit" onClick={handleGoogleSingIn} className="btn btn-success my-1 w-100">Sing In With Google</button>
-                        <button type="submit" onClick={handleFacebookSingIn} className="btn btn-primary my-1 w-100">Sing In With Facebook</button>
+                        <h3 className='text-warning text-center'>Or</h3>
+                        <button type="submit" onClick={handleGoogleSingIn} className="btn btn-success my-1 w-100">Continue With Google</button>
+                        <button type="submit" onClick={handleFacebookSingIn} className="btn btn-primary my-1 w-100">Continue With Facebook</button>
                     </div>
                 </>
         } </>
