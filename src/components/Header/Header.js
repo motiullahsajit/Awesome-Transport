@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <Container>
             <Navbar expand="lg">
-                <Navbar.Brand to='/'><h2 className='text-success'>Awesome Transport</h2></Navbar.Brand>
+                <Navbar.Brand ><Link to='/home'><h2 className='text-success'>Awesome Transport</h2></Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
@@ -19,7 +19,7 @@ const Header = () => {
                         <Nav.Link><Link to='/blog'>Blog</Link></Nav.Link>
                         <Nav.Link><Link to='/contact'>Contact</Link></Nav.Link>
                         {
-                            loggedInUser.email ? <Nav.Link><Link to='/login'>{loggedInUser.displayName}</Link></Nav.Link> : <Nav.Link><Link className="btn btn-success" to='/login'>Login</Link></Nav.Link>
+                            loggedInUser.displayName ? <Nav.Link><Link to='/login'>{loggedInUser.displayName}</Link></Nav.Link> : <Nav.Link><Link className="btn btn-success" to='/login'>Login</Link></Nav.Link>
                         }
                     </Nav>
                 </Navbar.Collapse>

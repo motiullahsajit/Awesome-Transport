@@ -1,22 +1,21 @@
 import React, { useContext, useState } from 'react';
-import firebase from "firebase/app";
-import "firebase/auth";
-import { firebaseConfig } from '../../firebase.config';
-import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
+import { UserContext } from '../../App';
+import { createUserWithEmailAndPassword, googleSingIn, initializeLoginFramework, signInWithEmailAndPassword, handleSignOut, facebookSingIn, } from './LoginManager';
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+
 const Login = () => {
-    const [option, setOption] = useState('register');
-    const [error, setError] = useState('')
-    const [formData, setFormData] = useState({ name: null, confirmPassword: null, email: null, password: null });
+    initializeLoginFramework();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
-    console.log(loggedInUser)
+    const [option, setOption] = useState('register');
+    const [error, setError] = useState('');
+    const [formData, setFormData] = useState();
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfrimPassword] = useState('')
+
     const onChangeHandler = (e) => {
         let isFieldValid = true;
         if (e.target.name === 'email') {
@@ -26,6 +25,19 @@ const Login = () => {
             const isPasswordValid = e.target.value.length >= 6;
             const passwordHasNumber = /\d{1}/.test(e.target.value);
             isFieldValid = isPasswordValid && passwordHasNumber
+            setPassword(e.target.value)
+        }
+        if (e.target.name === 'confirmPassword') {
+            const isPasswordValid = e.target.value.length >= 6;
+            const passwordHasNumber = /\d{1}/.test(e.target.value);
+            isFieldValid = isPasswordValid && passwordHasNumber
+            setConfrimPassword(e.target.value)
+        }
+        if (password !== confirmPassword) {
+            setError('Your passwords didnot matched')
+        }
+        if (password === confirmPassword) {
+            setError('')
         }
         if (isFieldValid) {
             const key = e.target.name
@@ -36,80 +48,54 @@ const Login = () => {
             setError('Please check your Email format or Password (password should have more then six character and a number in it)')
         }
     }
-
-
-    const handleGoogleSingIn = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth()
-            .signInWithPopup(provider)
-            .then((result) => {
-                setLoggedInUser(result.user)
-                history.replace(from);
-            }).catch((error) => {
-                const errorMessage = error.message;
-                setError(errorMessage)
-            });
-    }
-    const handleFacebookSingIn = () => {
-        const provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth()
-            .signInWithPopup(provider)
-            .then((result) => {
-                setLoggedInUser(result.user)
-                history.replace(from);
-            }).catch((error) => {
-                const errorMessage = error.message;
-                setError(errorMessage)
-            });
-    }
-
     const signUp = (e) => {
         e.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
-            .then((res) => {
-                const user = res.user;
-                setLoggedInUser(user)              
-                history.replace(from);
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                setError(errorMessage)
-            });
+        createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
+            handleResponse(res, true)
+        }).catch(error => { setError(error) })
     }
-
 
     const signIn = (e) => {
         e.preventDefault();
-
-        firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-            .then((res) => {
-                const user = res.user;
-                setLoggedInUser(user)
-                history.replace(from);
-            })
-            .catch((error) => {
-                const errorMessage = error.message;
-                setError(errorMessage)
-            });
-
+        signInWithEmailAndPassword(formData.email, formData.password).then(res => {
+            handleResponse(res, true)
+        }).catch(error => { setError(error) })
     }
-    const singOUt = () => {
-        firebase.auth().signOut().then(() => {
-            setLoggedInUser({})
-        }).catch((error) => {
-            var errorMessage = error.message;
-            setError(errorMessage)
-        });
+
+    const singOUt = (e) => {
+        handleSignOut().then(res => {
+            handleResponse(res, false)
+        }).catch(error => { setError(error) })
+    }
+
+    const handleGoogleSingIn = () => {
+        googleSingIn().then(res => {
+            handleResponse(res, true)
+        }).catch(error => { setError(error) })
+    }
+    const handleFacebookSingIn = () => {
+        facebookSingIn().then(res => {
+            handleResponse(res, true)
+        }).catch(error => { setError(error) })
+    }
+
+    const handleResponse = (res, redirect) => {
+        setLoggedInUser(res)
+        redirect && history.replace(from);
     }
     return (
         <>  {
-            loggedInUser.email ? <div className='container col-md-3 text-center'>
-                 <h3>{formData.name}</h3>
-                 <img src={loggedInUser.photoURL} alt=""/>
-                 <h3>{loggedInUser.displayName}</h3>  
-                 <h3>Email: {loggedInUser.email}</h3>
-                  <button className='btn btn-success w-100 my-1' onClick={singOUt}>Sign Out</button>
-                  </div>
+            loggedInUser.email ?
+                <div className='container col-md-3 text-center mt-5'>
+                    <div className="card text-left">
+                        <img src={loggedInUser.photoURL} alt="" />
+                        <div className="card-body">
+                            <h3>Name: {loggedInUser.displayName}</h3>
+                            <h3>Email: {loggedInUser.email}</h3>
+                        </div>
+                        <button className='btn btn-success w-100 rounded-0' onClick={singOUt}>Sign Out</button>
+                    </div>
+                </div>
                 :
                 <>
                     <div className="col-md-3 mt-5 container bg-light p-3">
@@ -148,7 +134,7 @@ const Login = () => {
                             </div>
                             {
                                 option === 'register' ? <> <p>Already have an account? <span className='text-danger' onClick={() => setOption('login')}>Login</span></p></> :
-                                    <> <p>Want to create an account? <span className='text-danger' onClick={() => setOption('register')}>Sing Up</span></p></>
+                                    <> <p>Don't have an account? <span className='text-danger' onClick={() => setOption('register')}>Create an account</span></p></>
                             }
                         </form>
                         <h3 className='text-danger text-center'>Or</h3>
