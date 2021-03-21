@@ -1,9 +1,10 @@
 import React from 'react';
 import blogImg from '../../images/blogImg.jpg'
 const Blog = () => {
+    document.title = 'Blog';
     return (
         <div className="container">
-            <div className="card col-lg-10 col-md-8 col-sm-12 mx-auto">
+            <div className="card col-lg-9 col-md-7 col-sm-12 mx-auto">
                 <img src={blogImg} className="card-img-top" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">Why You Should Choose Us</h5>

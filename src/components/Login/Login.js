@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, googleSingIn, initializeLoginFramework,
 
 
 const Login = () => {
+    document.title = 'Login';
     initializeLoginFramework();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
     const [option, setOption] = useState('signUp');
@@ -34,12 +35,6 @@ const Login = () => {
             isFieldValid = isPasswordValid && passwordHasNumber
             setConfrimPassword(e.target.value)
         }
-        if (password !== confirmPassword) {
-            setError('Your passwords didnot matched')
-        }
-        if (password === confirmPassword) {
-            setError('')
-        }
         if (isFieldValid) {
             const key = e.target.name
             setFormData({ ...formData, [key]: e.target.value })
@@ -53,9 +48,15 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (option === 'signUp') {
-            createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
-                handleResponse(res, true)
-            }).catch(error => { setError(error) })
+            if(password === confirmPassword){
+                createUserWithEmailAndPassword(formData.name, formData.email, formData.password).then(res => {
+                    handleResponse(res, true)
+                }).catch(error => { setError(error) })
+                setError('')
+            }
+            else{
+                setError('Your passwords didnot matched')
+            }
         }
         if (option === 'login') {
             signInWithEmailAndPassword(formData.email, formData.password).then(res => {
@@ -64,7 +65,7 @@ const Login = () => {
         }
     }
 
-    const singOut = (e) => {
+    const signOut = (e) => {
         handleSignOut().then(res => {
             handleResponse(res, false)
         }).catch(error => { setError(error) })
@@ -85,10 +86,11 @@ const Login = () => {
         setLoggedInUser(res)
         redirect && history.replace(from);
     }
+
     return (
         <>  {
             loggedInUser.email ?
-                <Profile />
+                <Profile signOut={signOut}/>
                 :
                 <>
                     <div className="col-md-3 mt-5 container bg-light p-3">

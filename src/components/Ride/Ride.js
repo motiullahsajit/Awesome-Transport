@@ -9,7 +9,7 @@ const Ride = (props) => {
     const { rideType, rideImg, shortDes } = props.ride;
     return (
         <div onClick={() => handleRide(rideType)} className="col-lg-3 col-md-6 col-sm-12 my-2">
-            <div className="card h-100">
+            <div className="card h-100 text-dark">
                 <img src={rideImg} className="card-img-top p-3" alt="..." />
                 <div className="card-body">
                     <h4 className="card-title">{rideType}</h4>

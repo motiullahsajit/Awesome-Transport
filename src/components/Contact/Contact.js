@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Contact = () => {
+    document.title = 'Contact Us';
     return (
         <div className="container mt-5">
             <h1 className='text-warning text-center my-2'>Contact Us</h1>

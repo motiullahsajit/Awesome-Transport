@@ -4,6 +4,7 @@ import RideTypeData from './RideTypeData.json';
 
 
 const RideSelection = () => {
+    document.title = 'Home';
     const [rides, setRides] = useState([])
 
     useEffect(() => {

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import GoogleMap from '../GoogleMap/GoogleMap';
+import Location from '../Location/Location';
 import RidePackeges from '../RidePackages/RidePackeges';
 const Destination = () => {
+    document.title = 'Destination';
     const { rideType } = useParams();
     const { destination } = useParams();
     const [showPackages, setShowPackages] = useState(false)
@@ -57,7 +58,7 @@ const Destination = () => {
                                 </div>
                                 <div className="col-md-8 text-warning">
                                     <h3>Location</h3>
-                                    <GoogleMap/>
+                                    <Location origin={location.from} destination={location.to} />
                                 </div>
                             </div>
                         </div>
